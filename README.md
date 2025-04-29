@@ -1,5 +1,5 @@
 <b>[CVPR 2025] LoRA Recycle: Unlocking Tuning-Free Few-Shot Adaptability in Visual Foundation Models by Recycling Pre-Tuned LoRAs </b>
-<center>
+</center>
 <a href="https://arxiv.org/pdf/2412.02220">📝 Paper</a> &nbsp ｜ &nbsp
 <a href="https://github.com/Egg-Hu/LoRA-Recycle">📝 Slide</a> &nbsp ｜ &nbsp
 <a href="https://github.com/Egg-Hu/LoRA-Recycle">📝 Poster</a>
@@ -7,7 +7,7 @@
 
 <p align="center">
     <br>
-    <img src="fig/motivation.jpg" width="350" />
+    <img src="fig/motivation.jpg" width="450" />
     <br>
 <p>
 <br>
@@ -17,12 +17,12 @@
 
 <p align="center">
     <br>
-    <img src="fig/pipeline.jpg" width="350" />
+    <img src="fig/pipeline.jpg" width="450" />
     <br>
 <p>
 <p align="center">
     <br>
-    <img src="fig/double.jpg" width="350" />
+    <img src="fig/double.jpg" width="450" />
     <br>
 <p>
 
