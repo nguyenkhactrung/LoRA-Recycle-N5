@@ -3,7 +3,7 @@
 
 >Unlocking Tuning-Free Few-Shot Adaptability in Visual Foundation Models by Recycling Pre-Tuned LoRAs
 
-<p align="center">
+<!-- <p align="center">
   <img src="fig/motivation.png" alt="motivation" width="400"><br>
 </p>
 
@@ -20,7 +20,8 @@
   <img src="fig/double.png" alt="motivation" width="400"><br>
 </p>
 
-**Double-Efficient Mechanism**. (Left: Efficient Data-Generation) During the data-generation stage, token pruning is performed in the hidden layers by removing unimportant tokens based on self-attention weights, accelerating both forward and backward computations for reverse engineering. (Right: Efficient Meta-Training) To select the most informative tokens from the synthetic data for the following meta-training, we construct a mask by setting values of 1 at the positions of remaining tokens and 0 elsewhere. We multiply the mask with the synthetic image to create a masked image. We then exclusively use the unmasked tokens for meta-training. This selective use of sparse tokens significantly accelerates meta-training, while maintaining or even  improving performance by reducing noise from the synthetic data.
+**Double-Efficient Mechanism**. (Left: Efficient Data-Generation) During the data-generation stage, token pruning is performed in the hidden layers by removing unimportant tokens based on self-attention weights, accelerating both forward and backward computations for reverse engineering. (Right: Efficient Meta-Training) To select the most informative tokens from the synthetic data for the following meta-training, we construct a mask by setting values of 1 at the positions of remaining tokens and 0 elsewhere. We multiply the mask with the synthetic image to create a masked image. We then exclusively use the unmasked tokens for meta-training. This selective use of sparse tokens significantly accelerates meta-training, while maintaining or even  improving performance by reducing noise from the synthetic data. -->
+
 ## Requirements
 
 ```bash
