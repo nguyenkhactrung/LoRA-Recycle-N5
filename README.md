@@ -66,7 +66,7 @@ For Cross-Domain setting, we use ChestX, ISIC, EuroSAT and CropDiseases.
     ```
 
 3) Reset the SPLIT_PATH (the path to the generated split csv files) in each file under ./dataset.
-## Quick Start
+## 🚀 Quick Start
 - In-Domain Setting.
   ```bash
   python main.py \
@@ -219,7 +219,7 @@ https://huggingface.co/openai/clip-vit-base-patch16
 https://huggingface.co/openai/clip-vit-base-patch32
 ````
 
-## Pre-Tuned LoRAs
+## 🧩 Pre-Tuned LoRAs
 
 
 You can put the pre-trained LoRA into the following folder.
