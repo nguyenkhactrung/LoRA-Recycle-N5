@@ -1,7 +1,6 @@
 <!-- 标题 -->
-<p align="center" style="font-size:28px; font-weight:bold;">
-  [CVPR 2025] LoRA Recycle: Unlocking Tuning-Free Few-Shot Adaptability in Visual Foundation Models by Recycling Pre-Tuned LoRAs
-</p>
+<h2 align="center">[CVPR 2025] LoRA Recycle: Unlocking Tuning-Free Few-Shot Adaptability in Visual Foundation Models by Recycling Pre-Tuned LoRAs</h2>
+
 
 <!-- 链接 -->
 <p align="center">
@@ -15,7 +14,34 @@
   <img src="fig/motivation.jpg" width="450">
 </p>
 
-**Motivation of LoRA Recycle**: Thanks to the modularity of LoRA, users can upload locally tuned LoRAs to public repositories without exposing original training data.
+### 🚀 Motivation of LoRA Recycle
+
+<p align="center">
+  <img src="fig/motivation.jpg" width="450">
+</p>
+
+Thanks to the modularity of LoRA, users can upload locally tuned LoRAs to public repositories without exposing original training data.  
+LoRA Recycle distills a meta-LoRA from these LoRAs without needing their original training data.  
+The VFM, once equipped with the meta-LoRA, is empowered to solve new few-shot tasks in a single forward pass without further fine-tuning.
+
+---
+
+### 🔥 Pipeline of LoRA Recycle
+
+<p align="center">
+  <img src="fig/pipeline.jpg" width="650">
+</p>
+
+---
+
+### 🌱 Sparse Synthetic Data Generation
+
+<p align="center">
+  <img src="fig/double.jpg" width="650">
+</p>
+
+
+<!-- **Motivation of LoRA Recycle**: Thanks to the modularity of LoRA, users can upload locally tuned LoRAs to public repositories without exposing original training data.
   LoRA Recycle distills a meta-LoRA from these LoRAs without needing their original training data. The VFM, once equipped with the meta-LoRA, is empowered to solve new few-shot tasks in a single forward pass without further fine-tuning.
 
 <p align="center">
@@ -33,26 +59,8 @@
 <p>
 <p align="center">
   Sparse Synthetic Data Generation
-</p>
+</p> -->
 
-<!-- <p align="center">
-  <img src="fig/motivation.png" alt="motivation" width="400"><br>
-</p>
-
-**Motivation of LoRA Recycle**: Thanks to the modularity of LoRA, users can upload locally tuned LoRAs to public repositories without exposing original training data.
-  LoRA Recycle distills a meta-LoRA from these LoRAs without needing their original training data. The VFM, once equipped with the meta-LoRA, is empowered to solve new few-shot tasks in a single forward pass without further fine-tuning.
-
-<p align="center">
-  <img src="fig/pipeline.png" alt="motivation" width="400"><br>
-</p>
-
-**Pipeline of LoRA Recycle**. (i) (Pink Path) We generate task-specific synthetic data from the pre-tuned LoRA via LoRA Inversion. The input data (attached with the fire in the left corner) is initialized as Gaussian noise and iteratively optimized. The synthetic data is then used to construct a meta-training task with one support set and one query set. (ii) (Black Path) We meta-train the meta-LoRA (attached with the fire in the middle) on a  wide range of pre-tuned LoRAs by minimizing the meta-learning objective, explicitly teaching it how to adapt without fine-tuning.
-
-<p align="center">
-  <img src="fig/double.png" alt="motivation" width="400"><br>
-</p>
-
-**Double-Efficient Mechanism**. (Left: Efficient Data-Generation) During the data-generation stage, token pruning is performed in the hidden layers by removing unimportant tokens based on self-attention weights, accelerating both forward and backward computations for reverse engineering. (Right: Efficient Meta-Training) To select the most informative tokens from the synthetic data for the following meta-training, we construct a mask by setting values of 1 at the positions of remaining tokens and 0 elsewhere. We multiply the mask with the synthetic image to create a masked image. We then exclusively use the unmasked tokens for meta-training. This selective use of sparse tokens significantly accelerates meta-training, while maintaining or even  improving performance by reducing noise from the synthetic data. -->
 
 ## Requirements
 
