@@ -193,13 +193,15 @@ You can put the pre-trained LoRA into the following folder.
 ./lorahub
 ```
 
-<!-- ## Pre-Inverted Data
+## Pre-Inverted Data
 
-We will provide data inverted from LoRAs pre-tuned on different datasets in the following directory (including unmasked and 25%/50%/75%-masked versions).
+Please connect me if you need the examples of inverted synthetic images.
 
+<!-- We will provide data inverted from LoRAs pre-tuned on different datasets in the following directory (including unmasked and 25%/50%/75%-masked versions). -->
+<!-- 
 ```bash
 ```bash
 ./pre_datapool
-```
+``` -->
 
-##  -->
+## 
