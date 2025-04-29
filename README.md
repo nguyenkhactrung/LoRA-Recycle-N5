@@ -13,7 +13,7 @@ pip install -r requirements.txt
    In our paper, we use eight datasets.
 For In-Domain setting, we use CIFAR-FS, MiniImageNet, VGG-Flower and CUB-200-2011.
 For Cross-Domain setting, we use ChestX, ISIC, EuroSAT and CropDiseases.
-You can download them from the public link or directly download from the link which we will provide upon acceptance. For supplementary materials, we can not upload these files due to file size limits.
+
 ```bash
 2) Generate split csv files of meta-training and meta-testing subsets
 
