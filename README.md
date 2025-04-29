@@ -7,7 +7,7 @@
 
 <p align="center">
     <br>
-    <img src="fig/motivation.jpg" width="150" />
+    <img src="fig/motivation.jpg" width="350" />
     <br>
 <p>
 <br>
