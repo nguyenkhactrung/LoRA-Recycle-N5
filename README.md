@@ -197,6 +197,7 @@ You can put the pre-trained LoRA into the following folder.
 
 Please connect me if you need the examples of inverted synthetic images.
 
+![alt text](examples.png)
 <!-- We will provide data inverted from LoRAs pre-tuned on different datasets in the following directory (including unmasked and 25%/50%/75%-masked versions). -->
 <!-- 
 ```bash
