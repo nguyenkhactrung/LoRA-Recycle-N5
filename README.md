@@ -3,7 +3,7 @@
 
 >Unlocking Tuning-Free Few-Shot Adaptability in Visual Foundation Models by Recycling Pre-Tuned LoRAs
 
-<img src="fig/motivation.png" alt="motivation" width="200">
+<img src="fig/motivation.png" alt="motivation" width="300">
 
 Concept of LoRA Recycle: Thanks to the modularity of LoRA, users can upload locally tuned LoRAs to public repositories without exposing original training data.
   LoRA Recycle distills a meta-LoRA from these LoRAs without needing their original training data. The VFM, once equipped with the meta-LoRA, is empowered to solve new few-shot tasks in a single forward pass without further fine-tuning.
