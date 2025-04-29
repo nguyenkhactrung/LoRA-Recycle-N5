@@ -245,7 +245,7 @@ Please cite our paper if you find it helpful :)
 ```bash
 @inproceedings{hu2025lora_recycle,
   title={LoRA Recycle: Unlocking Tuning-Free Few-Shot Adaptability in Visual Foundation Models by Recycling Pre-Tuned LoRAs},
-  author={Hu, Zixuan and Wei, Yongxian and Shen, Li and and Yuan, Chun and Tao, Dacheng},
+  author={Hu, Zixuan and Wei, Yongxian and Shen, Li and Yuan, Chun and Tao, Dacheng},
   booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
   year={2025}
 }
