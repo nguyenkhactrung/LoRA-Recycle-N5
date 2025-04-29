@@ -28,8 +28,9 @@ For Cross-Domain setting, we use ChestX, ISIC, EuroSAT and CropDiseases.
     python ./write_file/write_eurosat_filelist.py
     python ./write_file/write_isic_filelist.py
     python ./write_file/write_chest_filelist.py
-```
-4) Reset the SPLIT_PATH (the path to the generated split csv files) in each file under ./dataset.
+    ```
+
+3) Reset the SPLIT_PATH (the path to the generated split csv files) in each file under ./dataset.
 ## Quick Start
 - In-Domain Setting.
   ```bash
