@@ -1,6 +1,6 @@
 <!-- 标题 -->
-<p align="center">
-  <b>[CVPR 2025] LoRA Recycle: Unlocking Tuning-Free Few-Shot Adaptability in Visual Foundation Models by Recycling Pre-Tuned LoRAs</b>
+<p align="center" style="font-size:28px; font-weight:bold;">
+  [CVPR 2025] LoRA Recycle: Unlocking Tuning-Free Few-Shot Adaptability in Visual Foundation Models by Recycling Pre-Tuned LoRAs
 </p>
 
 <!-- 链接 -->
@@ -20,12 +20,12 @@
 
 <p align="center">
     <br>
-    <img src="fig/pipeline.jpg" width="450" />
+    <img src="fig/pipeline.jpg" width="650" />
     <br>
 <p>
 <p align="center">
     <br>
-    <img src="fig/double.jpg" width="450" />
+    <img src="fig/double.jpg" width="650" />
     <br>
 <p>
 
