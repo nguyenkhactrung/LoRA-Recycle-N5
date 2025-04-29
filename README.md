@@ -1,6 +1,20 @@
-## 【CVPR 2025】LoRA Recycle
+<b>[CVPR 2025] LoRA Recycle: Unlocking Tuning-Free Few-Shot Adaptability in Visual Foundation Models by Recycling Pre-Tuned LoRAs </b>
+<center>
+<a href="https://arxiv.org/pdf/2412.02220">📝 Paper</a> &nbsp ｜ &nbsp
+<a href="https://github.com/Egg-Hu/LoRA-Recycle">📝 Slide</a> &nbsp ｜ &nbsp
+<a href="https://github.com/Egg-Hu/LoRA-Recycle">📝 Poster</a>
+</div>
 
->Unlocking Tuning-Free Few-Shot Adaptability in Visual Foundation Models by Recycling Pre-Tuned LoRAs
+<p align="center">
+    <br>
+    <img src="fig/motivation.jpg" width="150" />
+    <br>
+<p>
+<br>
+
+**Motivation of LoRA Recycle**: Thanks to the modularity of LoRA, users can upload locally tuned LoRAs to public repositories without exposing original training data.
+  LoRA Recycle distills a meta-LoRA from these LoRAs without needing their original training data. The VFM, once equipped with the meta-LoRA, is empowered to solve new few-shot tasks in a single forward pass without further fine-tuning.
+
 
 <!-- <p align="center">
   <img src="fig/motivation.png" alt="motivation" width="400"><br>
