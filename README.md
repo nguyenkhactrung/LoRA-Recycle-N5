@@ -14,7 +14,6 @@ pip install -r requirements.txt
 For In-Domain setting, we use CIFAR-FS, MiniImageNet, VGG-Flower and CUB-200-2011.
 For Cross-Domain setting, we use ChestX, ISIC, EuroSAT and CropDiseases.
 
-```bash
 2) Generate split csv files of meta-training and meta-testing subsets
 
    Reset the DATA_PATH (the path to the downloaded dataset) and SPLIT_PATH (the path to save the generated csv file) in each file under ./write_file.
