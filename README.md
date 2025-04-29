@@ -1,6 +1,15 @@
 The PyTorch implementation of
 
 Unlocking Tuning-Free Few-Shot Adaptability in Visual Foundation Models by Recycling Pre-Tuned LoRAs
+![alt text](fig/motivation.png)
+Concept of LoRA Recycle: Thanks to the modularity of LoRA, users can upload locally tuned LoRAs to public repositories without exposing original training data.
+  LoRA Recycle distills a meta-LoRA from these LoRAs without needing their original training data. The VFM, once equipped with the meta-LoRA, is empowered to solve new few-shot tasks in a single forward pass without further fine-tuning.
+
+![alt text](fig/pipeline.png)
+Pipeline of LoRA Recycle. (i) (Pink Path) We generate task-specific synthetic data from the pre-tuned LoRA via LoRA Inversion. The input data (attached with the fire in the left corner) is initialized as Gaussian noise and iteratively optimized by minimizing $\mathcal{L}_{\rm data}$ . The synthetic data is then used to construct a meta-training task with one support set and one query set. (ii) (Black Path) We meta-train the meta-LoRA (attached with the fire in the middle) on a  wide range of pre-tuned LoRAs by minimizing the meta-learning objective $\mathcal{L}_{\rm meta}$, explicitly teaching it how to adapt without fine-tuning.
+
+![alt text](fig/double.png)
+Double-Efficient Mechanism. (Left: Efficient Data-Generation) During the data-generation stage, token pruning is performed in the hidden layers by removing unimportant tokens based on self-attention weights, accelerating both forward and backward computations for reverse engineering. (Right: Efficient Meta-Training) To select the most informative tokens from the synthetic data for the following meta-training, we construct a mask by setting values of 1 at the positions of remaining tokens and 0 elsewhere. We multiply the mask with the synthetic image to create a masked image. We then exclusively use the unmasked tokens for meta-training. This selective use of sparse tokens significantly accelerates meta-training, while maintaining or even  improving performance by reducing noise from the synthetic data.
 ## Requirements
 
 ```bash
@@ -197,7 +206,7 @@ You can put the pre-trained LoRA into the following folder.
 
 Please connect me if you need the examples of inverted synthetic images.
 
-![alt text](examples.png)
+![alt text](fig/examples.png)
 <!-- We will provide data inverted from LoRAs pre-tuned on different datasets in the following directory (including unmasked and 25%/50%/75%-masked versions). -->
 <!-- 
 ```bash
