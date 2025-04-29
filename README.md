@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="fig/lora_recycle_logo_transparent.png" width="350">
+  <img src="fig/lora_recycle_trimmed.png" width="350">
 </p>
 <!-- 链接 -->
 <p align="center">
