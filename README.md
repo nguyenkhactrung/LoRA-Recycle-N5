@@ -24,10 +24,16 @@
     <br>
 <p>
 <p align="center">
+  Pipeline of LoRA Recycle
+</p>
+<p align="center">
     <br>
     <img src="fig/double.jpg" width="650" />
     <br>
 <p>
+<p align="center">
+  Sparse Synthetic Data Generation
+</p>
 
 <!-- <p align="center">
   <img src="fig/motivation.png" alt="motivation" width="400"><br>
