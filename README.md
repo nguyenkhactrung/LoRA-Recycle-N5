@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="fig/logo.png" width="150">
+  <img src="fig/logo.png" width="250">
 </p>
 <!-- 标题 -->
 <h2 align="center">[CVPR 2025] LoRA Recycle: Unlocking Tuning-Free Few-Shot Adaptability in Visual Foundation Models by Recycling Pre-Tuned LoRAs</h2>
