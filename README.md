@@ -1,4 +1,4 @@
-<p align="center" style="margin-bottom: -10;>
+<p align="center" style="margin-bottom: -2;>
   <img src="fig/lora_recycle_logo_transparent.png" width="350">
 </p>
 <!-- 标题 -->
