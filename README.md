@@ -3,10 +3,13 @@
 
 >Unlocking Tuning-Free Few-Shot Adaptability in Visual Foundation Models by Recycling Pre-Tuned LoRAs
 
-<img src="fig/motivation.png" alt="motivation" width="300">
+<p align="center">
+  <img src="fig/motivation.png" alt="motivation" width="300"><br>
+  <em>Concept of LoRA Recycle: Thanks to the modularity of LoRA, users can upload locally tuned LoRAs to public repositories without exposing original training data.
+  LoRA Recycle distills a meta-LoRA from these LoRAs without needing their original training data. The VFM, once equipped with the meta-LoRA, is empowered to solve new few-shot tasks in a single forward pass without further fine-tuning.</em>
+</p>
 
-Concept of LoRA Recycle: Thanks to the modularity of LoRA, users can upload locally tuned LoRAs to public repositories without exposing original training data.
-  LoRA Recycle distills a meta-LoRA from these LoRAs without needing their original training data. The VFM, once equipped with the meta-LoRA, is empowered to solve new few-shot tasks in a single forward pass without further fine-tuning.
+
 
 ![alt text](fig/pipeline.png)
 Pipeline of LoRA Recycle. (i) (Pink Path) We generate task-specific synthetic data from the pre-tuned LoRA via LoRA Inversion. The input data (attached with the fire in the left corner) is initialized as Gaussian noise and iteratively optimized. The synthetic data is then used to construct a meta-training task with one support set and one query set. (ii) (Black Path) We meta-train the meta-LoRA (attached with the fire in the middle) on a  wide range of pre-tuned LoRAs by minimizing the meta-learning objective, explicitly teaching it how to adapt without fine-tuning.
