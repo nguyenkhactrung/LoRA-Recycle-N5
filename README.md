@@ -1,15 +1,16 @@
 <p align="center">
   <img src="fig/lora_recycle_logo_transparent.png" width="350">
 </p>
-<!-- 标题 -->
-<h2 align="center">[CVPR 2025] LoRA Recycle: Unlocking Tuning-Free Few-Shot Adaptability in Visual Foundation Models by Recycling Pre-Tuned LoRAs</h2>
-
 <!-- 链接 -->
 <p align="center">
   <a href="https://arxiv.org/pdf/2412.02220">📝 Paper</a> &nbsp;|&nbsp;
   <a href="https://github.com/Egg-Hu/LoRA-Recycle">📑 Slide</a> &nbsp;|&nbsp;
   <a href="https://github.com/Egg-Hu/LoRA-Recycle">📌 Poster</a>
 </p>
+
+<!-- 标题 -->
+<h2 align="center">[CVPR 2025] LoRA Recycle: Unlocking Tuning-Free Few-Shot Adaptability in Visual Foundation Models by Recycling Pre-Tuned LoRAs</h2>
+
 
 
 ### 🚀 Motivation of LoRA Recycle
