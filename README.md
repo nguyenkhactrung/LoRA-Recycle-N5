@@ -15,6 +15,16 @@
 **Motivation of LoRA Recycle**: Thanks to the modularity of LoRA, users can upload locally tuned LoRAs to public repositories without exposing original training data.
   LoRA Recycle distills a meta-LoRA from these LoRAs without needing their original training data. The VFM, once equipped with the meta-LoRA, is empowered to solve new few-shot tasks in a single forward pass without further fine-tuning.
 
+<p align="center">
+    <br>
+    <img src="fig/pipeline.jpg" width="350" />
+    <br>
+<p>
+<p align="center">
+    <br>
+    <img src="fig/double.jpg" width="350" />
+    <br>
+<p>
 
 <!-- <p align="center">
   <img src="fig/motivation.png" alt="motivation" width="400"><br>
@@ -231,7 +241,7 @@ You can put the pre-trained LoRA into the following folder.
 
 Please connect me if you need the examples of inverted synthetic images.
 
-![alt text](fig/examples.png)
+![alt text](fig/vis.jpg)
 <!-- We will provide data inverted from LoRAs pre-tuned on different datasets in the following directory (including unmasked and 25%/50%/75%-masked versions). -->
 <!-- 
 ```bash
@@ -239,4 +249,13 @@ Please connect me if you need the examples of inverted synthetic images.
 ./pre_datapool
 ``` -->
 
-## 
+## Citation
+Please cite our paper if you find it helpful :)
+```bash
+@inproceedings{hu2025lora_recycle,
+  title={LoRA Recycle: Unlocking Tuning-Free Few-Shot Adaptability in Visual Foundation Models by Recycling Pre-Tuned LoRAs},
+  author={Hu, Zixuan and Wei, Yongxian and Shen, Li and and Yuan, Chun and Tao, Dacheng},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  year={2025}
+}
+```
