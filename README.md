@@ -9,11 +9,6 @@
   <a href="https://github.com/Egg-Hu/LoRA-Recycle">📌 Poster</a>
 </p>
 
-<!-- 图片 -->
-<p align="center">
-  <img src="fig/motivation.jpg" width="450">
-</p>
-
 ### 🚀 Motivation of LoRA Recycle
 
 <p align="center">
@@ -41,34 +36,13 @@ The VFM, once equipped with the meta-LoRA, is empowered to solve new few-shot ta
 </p>
 
 
-<!-- **Motivation of LoRA Recycle**: Thanks to the modularity of LoRA, users can upload locally tuned LoRAs to public repositories without exposing original training data.
-  LoRA Recycle distills a meta-LoRA from these LoRAs without needing their original training data. The VFM, once equipped with the meta-LoRA, is empowered to solve new few-shot tasks in a single forward pass without further fine-tuning.
-
-<p align="center">
-    <br>
-    <img src="fig/pipeline.jpg" width="650" />
-    <br>
-<p>
-<p align="center">
-  Pipeline of LoRA Recycle
-</p>
-<p align="center">
-    <br>
-    <img src="fig/double.jpg" width="650" />
-    <br>
-<p>
-<p align="center">
-  Sparse Synthetic Data Generation
-</p> -->
-
-
-## Requirements
+## ⚙️ Requirements
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Datasets
+## 📂 Datasets
 1) Download
 
    In our paper, we use eight datasets.
@@ -197,7 +171,7 @@ For Cross-Domain setting, we use ChestX, ISIC, EuroSAT and CropDiseases.
                 x: mask extra remaining tokens after the last layer
   --pre_datapool_path: path to the pre-inverted data
   ```
-## Pre-Invert Data & Visualize
+## 🖼️ Visualization
   ```bash
   python main.py \
   --multigpu 6 \
@@ -236,7 +210,7 @@ For Cross-Domain setting, we use ChestX, ISIC, EuroSAT and CropDiseases.
 
 
 
-## Pre-trained ViTs
+## 🧩 Pre-trained ViTs
 
 You can download the pre-trained ViT from the following public link.
 
@@ -254,7 +228,7 @@ You can put the pre-trained LoRA into the following folder.
 ./lorahub
 ```
 
-## Pre-Inverted Data
+## 🖼️ Pre-Inverted Data
 
 Please connect me if you need the examples of inverted synthetic images.
 
@@ -266,7 +240,7 @@ Please connect me if you need the examples of inverted synthetic images.
 ./pre_datapool
 ``` -->
 
-## Citation
+## 📖 Citation
 Please cite our paper if you find it helpful :)
 ```bash
 @inproceedings{hu2025lora_recycle,
