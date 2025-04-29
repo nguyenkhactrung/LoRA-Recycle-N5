@@ -186,13 +186,14 @@ https://huggingface.co/openai/clip-vit-base-patch32
 
 ## Pre-Tuned LoRAs
 
-We will provide  LoRAs pre-tuned on different datasets in the following directory.
+
+You can put the pre-trained LoRA into the following folder.
 
 ```bash
 ./lorahub
 ```
 
-## Pre-Inverted Data
+<!-- ## Pre-Inverted Data
 
 We will provide data inverted from LoRAs pre-tuned on different datasets in the following directory (including unmasked and 25%/50%/75%-masked versions).
 
@@ -201,4 +202,4 @@ We will provide data inverted from LoRAs pre-tuned on different datasets in the 
 ./pre_datapool
 ```
 
-## 
+##  -->
