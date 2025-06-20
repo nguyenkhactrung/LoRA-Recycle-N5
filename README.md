@@ -3,7 +3,7 @@
 </p>
 <!-- 链接 -->
 <p align="center">
-  <a href="https://arxiv.org/pdf/2412.02220">📝 Paper</a> &nbsp;|&nbsp;
+  <a href="[https://arxiv.org/pdf/2412.02220](https://openaccess.thecvf.com/content/CVPR2025/papers/Hu_LoRA_Recycle_Unlocking_Tuning-Free_Few-Shot_Adaptability_in_Visual_Foundation_Models_CVPR_2025_paper.pdf)">📝 Paper</a> &nbsp;|&nbsp;
   <a href="https://github.com/Egg-Hu/LoRA-Recycle">📑 Slide</a> &nbsp;|&nbsp;
   <a href="https://github.com/Egg-Hu/LoRA-Recycle">📌 Poster</a>
 </p>
@@ -247,10 +247,12 @@ Please connect me if you need the examples of inverted synthetic images.
 ## 📖 Citation
 Please cite our paper if you find it helpful :)
 ```bash
-@inproceedings{hu2025lora_recycle,
-  title={LoRA Recycle: Unlocking Tuning-Free Few-Shot Adaptability in Visual Foundation Models by Recycling Pre-Tuned LoRAs},
-  author={Hu, Zixuan and Wei, Yongxian and Shen, Li and Yuan, Chun and Tao, Dacheng},
-  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
-  year={2025}
+@InProceedings{Hu_2025_CVPR,
+    author    = {Hu, Zixuan and Wei, Yongxian and Shen, Li and Yuan, Chun and Tao, Dacheng},
+    title     = {LoRA Recycle: Unlocking Tuning-Free Few-Shot Adaptability in Visual Foundation Models by Recycling Pre-Tuned LoRAs},
+    booktitle = {Proceedings of the Computer Vision and Pattern Recognition Conference (CVPR)},
+    month     = {June},
+    year      = {2025},
+    pages     = {25026-25037}
 }
 ```
