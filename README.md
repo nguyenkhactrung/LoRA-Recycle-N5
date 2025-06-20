@@ -3,7 +3,7 @@
 </p>
 <!-- 链接 -->
 <p align="center">
-  <a href="[https://arxiv.org/pdf/2412.02220](https://openaccess.thecvf.com/content/CVPR2025/papers/Hu_LoRA_Recycle_Unlocking_Tuning-Free_Few-Shot_Adaptability_in_Visual_Foundation_Models_CVPR_2025_paper.pdf)">📝 Paper</a> &nbsp;|&nbsp;
+  <a href="https://openaccess.thecvf.com/content/CVPR2025/papers/Hu_LoRA_Recycle_Unlocking_Tuning-Free_Few-Shot_Adaptability_in_Visual_Foundation_Models_CVPR_2025_paper.pdf">📝 Paper</a> &nbsp;|&nbsp;
   <a href="https://github.com/Egg-Hu/LoRA-Recycle">📑 Slide</a> &nbsp;|&nbsp;
   <a href="https://github.com/Egg-Hu/LoRA-Recycle">📌 Poster</a>
 </p>
