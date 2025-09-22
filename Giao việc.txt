@@ -1,0 +1,61 @@
+N5-LoRA-Recycle
+Bài tập lớn môn Big Data: Ứng dụng LoRA trong xử lý và tái sử dụng dữ liệu.
+Thành viên		Nhiệm vụ chính			Công việc chi tiết
+Nhóm trưởng 		Quản lý + Tích hợp Hadoop	- Code
+ 								+ Cài đặt và cấu hình Hadoop 3.3.6.
+ 								+ Sửa code và chạy thử LoRA-Recycle với dataset flower
+ 								+ Viết/tích hợp MapReduce pipeline (ví dụ: chuẩn hóa 1 dataset public~5GB).
+ 								+ Viết script kết nối Hadoop output → LoRA-Recycle input.
+ 							- Vẽ sơ đồ
+   								+ Vẽ sơ đồ tổng quan hệ thống (end-to-end: Hadoop → Preprocess → LoRA-Recycle → Output).
+ 							- Chạy thử
+ 								+ Chạy MapReduce job trên dataset nhỏ (100MB) để minh họa pipeline.
+ 							- Báo cáo
+ 								+ Viết phần 1 (Giới thiệu, mục tiêu) + phần kết luận.
+ 								+ Upload code Hadoop, pipeline & sơ đồ tổng quan lên GitHub.
+
+Nguyên 			Thu thập + xử lý dữ liệu	- Code
+ 								+ Thu thập 2 bộ dataset ≥ 10GB (1 bộ public, 1 bộ tự nghĩ/thu phải thuần việt).
+ 								+ Viết script MapReduce để giải nén + resize ảnh (batch-level).
+ 							- Vẽ sơ đồ
+ 								+ Vẽ flow xử lý dữ liệu (Data Flow: input raw → Hadoop Map → Hadoop Reduce → Output chuẩn hóa).
+ 							- Chạy thử
+ 								+ Chạy pipeline Hadoop với subset (~1GB) để tạo báo cáo log.
+ 							- Báo cáo
+ 								+ Viết phần 2 (Dữ liệu & tiền xử lý).
+ 								+ Upload code tiền xử lý & sơ đồ data flow lên GitHub.
+
+Hiếu 			Huấn luyện mô hình		- Code
+ 								+ Viết script train/test LoRA-Recycle với dataset nhỏ (Colab).
+ 								+ Chạy training trên dataset từ Hadoop (output của Nguyên).
+ 							- Vẽ sơ đồ
+ 								+ Vẽ sơ đồ training pipeline (Input → LoRA-Recycle → Training → Evaluation).
+ 							- Chạy thử
+ 								+ Chạy thử 1 epoch với dataset nhỏ + lưu log + kết quả test.
+ 							- Báo cáo
+ 								+ Viết phần 3 (Mô hình & thực nghiệm).
+ 								+ Upload code training & sơ đồ training lên GitHub.
+
+Trọng 			Vẽ bảng, hình ảnh, slide	- Code
+ 								+ Viết script vẽ biểu đồ (matplotlib hoặc seaborn) cho kết quả training.
+ 								+ Gõ lại toàn bộ bảng kết quả (24 bảng) bằng LaTeX / matplotlib table.
+ 							- Vẽ sơ đồ
+ 								+ Vẽ lại biểu đồ pipeline chi tiết (so sánh trước/sau Hadoop, trước/sau LoRA).
+ 							- Chạy thử
+ 								+ Chạy lại 1 pipeline nhỏ để vẽ biểu đồ log-loss / accuracy theo epoch.
+ 							- Báo cáo
+ 								+ Làm slide thuyết trình
+ 								+ Viết phần 4 (Kết quả & phân tích biểu đồ).
+ 								+ Upload script vẽ + slide minh họa lên GitHub.
+
+Thành			Báo cáo + kiểm thử		- Code
+ 								+ Chạy lại 1–2 thí nghiệm với dataset nhỏ để kiểm chứng pipeline.
+ 								+ Viết script unit-test cho pipeline (input ảnh → preprocess → train model).
+ 							- Vẽ sơ đồ
+ 								+ Vẽ sơ đồ triển khai & hướng phát triển (tích hợp Hadoop + AI trên cluster/Cloud).
+ 							- Chạy thử
+ 								+ Kiểm thử end-to-end: dataset nhỏ → Hadoop → training → output metrics.
+ 							- Báo cáo
+ 								+ Viết phần 5 (Triển khai & hướng phát triển).
+ 								+ Upload báo cáo Word + code kiểm thử + sơ đồ triển khai lên GitHub.
+ 
