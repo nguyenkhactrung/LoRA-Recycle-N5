@@ -305,7 +305,7 @@ def get_model(args,load=True):
             raise NotImplementedError
     elif args.backbone == "base_clip_16":
         if load:
-            model = CLIPModel.from_pretrained("Path_to_models--openai--clip-vit-base-patch16")# you can also automatically download via huggingface
+            model = CLIPModel.from_pretrained("openai/clip-vit-base-patch16")# you can also automatically download via huggingface
         else:
             raise NotImplementedError
     return model

@@ -1,7 +1,7 @@
 import argparse
 import os
 import torch
-from lorahub import pretrains
+from lorahub import flower_base_clip_16
 from method.pre_dfmeta_ft import pre_dfmeta_ft
 from preGenerate import pre_generate
 from tool import setup_seed
@@ -46,15 +46,38 @@ parser.add_argument('--pre_datapool_path', type=str, default=None,help='PATH_TO_
 args = parser.parse_args()
 os.environ['CUDA_VISIBLE_DEVICES'] = args.multigpu
 setup_seed(42)
-args.device=torch.device('cuda:{}'.format(args.gpu))
-########
-if args.preGenerate:
-    pre_generate(args)
-elif args.lorahub:
-    pretrains(args,100)
+if args.gpu == -1:
+    args.device = torch.device('cpu')
 else:
-    method_dict = dict(
-        pre_dfmeta_ft=pre_dfmeta_ft,
-    )
-    method=method_dict[args.method](args)
-    method.train_loop()
+    args.device = torch.device(f'cuda:{args.gpu}')
+########
+# if args.preGenerate:
+#     pre_generate(args)
+# elif args.lorahub:
+#     print(">>> Loading flower_base_clip_16 instead of pretrains")
+#     print(f"Using LoRA from: ./lorahub/flower_base_clip_16")
+#     #pretrains(args,100)
+# else:
+#     method_dict = dict(
+#         pre_dfmeta_ft=pre_dfmeta_ft,
+#     )
+#     method=method_dict[args.method](args)
+#     method.train_loop()
+if __name__ == "__main__":
+    if args.gpu == -1:
+        args.device = torch.device('cpu')
+    else:
+        args.device = torch.device(f'cuda:{args.gpu}')
+
+    if args.preGenerate:
+        pre_generate(args)
+    elif args.lorahub:
+        print(">>> Loading flower_base_clip_16 instead of pretrains")
+        print(f"Using LoRA from: ./lorahub/flower_base_clip_16")
+        # pretrains(args,100)
+    else:
+        method_dict = dict(
+            pre_dfmeta_ft=pre_dfmeta_ft,
+        )
+        method = method_dict[args.method](args)
+        method.train_loop()

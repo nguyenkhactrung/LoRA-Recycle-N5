@@ -88,8 +88,8 @@ def pre_generate(args):
         teacher.train()
         for batch_count, batch in enumerate(train_loader):
             optimizer.zero_grad()
-            image, abs_label, label_text = batch[0].cuda(args.device), batch[1].cuda(args.device), batch[2]
-            relative_label = label_abs2relative(specific=specific, label_abs=abs_label).cuda(args.device)
+            image, abs_label, label_text = batch[0].to(args.device), batch[1].to(args.device), batch[2]
+            relative_label = label_abs2relative(specific=specific, label_abs=abs_label).to(args.device)
 
             logits = teacher.get_image_logits(image)
             criteria = torch.nn.CrossEntropyLoss()
@@ -101,8 +101,8 @@ def pre_generate(args):
         correct, total = 0, 0
         teacher.eval()
         for batch_count, batch in enumerate(test_loader):
-            image, abs_label = batch[0].cuda(args.device), batch[1].cuda(args.device)
-            relative_label = label_abs2relative(specific=specific, label_abs=abs_label).cuda(args.device)
+            image, abs_label = batch[0].to(args.device), batch[1].to(args.device)
+            relative_label = label_abs2relative(specific=specific, label_abs=abs_label).to(args.device)
             logits = teacher.get_image_logits(image)
             prediction = torch.max(logits, 1)[1]
             correct = correct + (prediction.cpu() == relative_label.cpu()).sum()
