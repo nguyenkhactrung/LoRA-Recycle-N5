@@ -7,7 +7,7 @@ from torchvision import transforms
 #from tqdm import tqdm
 import numpy as np
 SPLIT_PATH = osp.join('')
-assert len(SPLIT_PATH)!=0, 'You should input the SPLIT_PATH!'
+#assert len(SPLIT_PATH)!=0, 'You should input the SPLIT_PATH!'
 
 def identity(x):
     return x

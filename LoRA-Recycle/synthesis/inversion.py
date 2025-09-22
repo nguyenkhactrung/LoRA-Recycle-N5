@@ -6,13 +6,15 @@ import random
 import sys
 import os
 import torchvision
+import sys, os
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from double_efficient_vit import apply_patch, reverse_patch
 sys.path.append(os.path.abspath(os.path.join(__file__, "..", "..")))
 from tool import generate_masked_image_from_index
-from .base import BaseSynthesis
-from .hooks import DeepInversionHook
-from .criterions import  get_image_prior_losses
-from ._utils import ImagePool2, clip_images
+from base import BaseSynthesis
+from hooks import DeepInversionHook
+from criterions import  get_image_prior_losses
+from _utils import ImagePool2, clip_images
 @contextmanager
 def dummy_ctx(*args, **kwds):
     try:

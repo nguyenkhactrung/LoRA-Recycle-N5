@@ -1,0 +1,15 @@
+torch
+torchvision
+torchaudio
+numpy
+pandas
+tqdm
+scikit-learn
+matplotlib
+seaborn
+opencv-python
+pillow
+timm
+transformers
+safetensors
+termcolor

@@ -4,18 +4,18 @@ from torch.utils.data import Dataset
 from torchvision import transforms
 import numpy as np
 SPLIT_PATH = osp.join('')
-assert len(SPLIT_PATH)!=0, 'You should input the SPLIT_PATH!'
+#assert len(SPLIT_PATH)!=0, 'You should input the SPLIT_PATH!'
 
 def identity(x):
     return x
 
-class chest(Dataset):
+class eurosat(Dataset):
     """ Usage:
     """
     def __init__(self, setname,augment=False,noTransform=False,resolution=32):
         csv_path = osp.join(SPLIT_PATH, setname + '.csv')
         #print('csv_path:',csv_path)
-        self.data, self.label, self.label_text = self.parse_csv(csv_path, setname)
+        self.data, self.label,self.label_text = self.parse_csv(csv_path, setname)
         self.num_class = len(set(self.label))
 
         self.img_size = resolution
@@ -37,6 +37,7 @@ class chest(Dataset):
             self.transform = transforms.Compose(
                 transforms_list
             )
+
     def parse_csv(self, csv_path, setname):
         lines = [x.strip() for x in open(csv_path, 'r').readlines()][1:]
 
@@ -57,22 +58,21 @@ class chest(Dataset):
             label.append(lb)
             label_text.append(wnid)
 
-        return data, label, label_text
+        return data, label,label_text
 
     def __len__(self):
         return len(self.data)
 
     def __getitem__(self, i):
-        data, label, label_text = self.data[i], self.label[i], self.label_text[i]
+        data, label,label_text = self.data[i], self.label[i],self.label_text[i]
         image = self.transform(Image.open(data).convert('RGB'))
-
-        return image, label, label_text
-class chest_Specific(Dataset):
+        return image, label,label_text
+class eurosat_Specific(Dataset):
     """ Usage:
     """
     def __init__(self, setname, specific=None, augment=False, mode='all',noTransform=False,resolution=32):
         csv_path = osp.join(SPLIT_PATH, setname + '.csv')
-        self.data, self.label,self.label_text = self.parse_csv(csv_path, setname)
+        self.data, self.label = self.parse_csv(csv_path, setname)
         self.num_class = len(set(self.label))
         if mode == 'all':
             data = [z[0] for z in zip(self.data, self.label) if z[1] in specific]
@@ -146,7 +146,8 @@ class chest_Specific(Dataset):
         lb = -1
 
         self.wnids = []
-        label_text=[]
+
+        # for l in tqdm(lines, ncols=64):
         for l in lines:
             name, wnid = l.split(',')
             path = name
@@ -155,15 +156,14 @@ class chest_Specific(Dataset):
                 lb += 1
             data.append( path )
             label.append(lb)
-            label_text.append(wnid)
 
-        return data, label,label_text
+        return data, label
 
     def __len__(self):
         return len(self.data)
 
     def __getitem__(self, i):
-        data, label, label_text = self.data[i], self.label[i], self.label_text[i]
+        data, label = self.data[i], self.label[i]
         image = self.transform(Image.open(data).convert('RGB'))
 
-        return image, label, label_text
+        return image, label

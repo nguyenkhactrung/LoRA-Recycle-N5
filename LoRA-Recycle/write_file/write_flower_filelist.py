@@ -7,11 +7,11 @@ import random
 import csv
 
 import scipy.io
-DATA_PATH=''
-SPLIT_PATH = ''
+DATA_PATH='C:/datasets/flower/flower/jpg'
+SPLIT_PATH = './filelists/flower/'
 assert len(DATA_PATH)!=0,'You should input the data_path!'
 assert len(SPLIT_PATH)!=0,'You should input the savedir!'
-label_path='Path_to_imagelabels.mat'
+label_path = 'C:/datasets/flower/imagelabels.mat'
 labels_mat = scipy.io.loadmat(label_path)
 os.makedirs(SPLIT_PATH, exist_ok=True)
 split_list = ['meta_train', 'meta_val', 'meta_test']

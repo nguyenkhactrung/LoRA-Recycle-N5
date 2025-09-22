@@ -1,21 +1,22 @@
-import torch
+import sys
+import os
+sys.path.append(os.path.abspath(os.path.join(__file__, "..", "..")))
 import os.path as osp
 from PIL import Image
-
 from torch.utils.data import Dataset
 from torchvision import transforms
-#from tqdm import tqdm
 import numpy as np
 SPLIT_PATH = osp.join('')
-assert len(SPLIT_PATH)!=0, 'You should input the SPLIT_PATH!'
+#assert len(SPLIT_PATH)!=0, 'You should input the SPLIT_PATH!'
+
 
 def identity(x):
     return x
 
-class Cifar100(Dataset):
+class MiniImageNet(Dataset):
     """ Usage:
     """
-    def __init__(self, setname, augment=False,noTransform=False,resolution=224):
+    def __init__(self, setname, augment=False,noTransform=False,resolution=32):
         csv_path = osp.join(SPLIT_PATH, setname + '.csv')
         #print('csv_path:',csv_path)
         self.data, self.label,self.label_text = self.parse_csv(csv_path, setname)
@@ -26,13 +27,13 @@ class Cifar100(Dataset):
             transforms_list = [
                   transforms.Resize((self.img_size, self.img_size)),
                   transforms.ToTensor(),
-                  transforms.Normalize((0.5071, 0.4867, 0.4408), (0.2675, 0.2565, 0.2761)),
+                  transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
                 ]
         else:
             transforms_list = [
                 transforms.Resize((self.img_size, self.img_size)),
                 transforms.ToTensor(),
-                transforms.Normalize((0.5071, 0.4867, 0.4408), (0.2675, 0.2565, 0.2761)),
+                transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
                 ]
         if noTransform==True:
             self.transform=lambda x:np.asarray(x)
@@ -46,11 +47,10 @@ class Cifar100(Dataset):
 
         data = []#[path0,path2,path2,...]
         label = []#[0,0,0,1,2,...]
-        label_text=[]
         lb = -1
 
         self.wnids = []
-
+        label_text=[]
         # for l in tqdm(lines, ncols=64):
         for l in lines:
             name, wnid = l.split(',')
@@ -62,21 +62,24 @@ class Cifar100(Dataset):
             label.append(lb)
             label_text.append(wnid)
 
-        return data, label, label_text
+        return data, label,label_text
 
     def __len__(self):
         return len(self.data)
 
     def __getitem__(self, i):
-        data, label,lable_text = self.data[i], self.label[i], self.label_text[i]
+        data, label,label_text = self.data[i], self.label[i], self.label_text[i]
         image = self.transform(Image.open(data).convert('RGB'))
-        return image, label, lable_text
-class Cifar100_Specific(Dataset):
+
+        return image, label, label_text
+
+class MiniImageNet_Specific(Dataset):
     """ Usage:
     """
-    def __init__(self, setname, specific=None, augment=False, mode='all',noTransform=False,resolution=224):
+
+    def __init__(self, setname, specific=None, augment=False, mode='all',noTransform=False,resolution=32):
         csv_path = osp.join(SPLIT_PATH, setname + '.csv')
-        self.data, self.label, self.label_text = self.parse_csv(csv_path, setname)
+        self.data, self.label,self.label_text = self.parse_csv(csv_path, setname)
         self.num_class = len(set(self.label))
         if mode == 'all':
             data = [z[0] for z in zip(self.data, self.label) if z[1] in specific]
@@ -127,13 +130,13 @@ class Cifar100_Specific(Dataset):
             transforms_list = [
                 transforms.Resize((self.img_size, self.img_size)),
                 transforms.ToTensor(),
-                transforms.Normalize((0.5071, 0.4867, 0.4408), (0.2675, 0.2565, 0.2761)),
+                transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
                 ]
         else:
             transforms_list = [
                 transforms.Resize((self.img_size, self.img_size)),
                 transforms.ToTensor(),
-                transforms.Normalize((0.5071, 0.4867, 0.4408), (0.2675, 0.2565, 0.2761)),
+                transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
                 ]
         if noTransform==True:
             self.transform=lambda x:np.asarray(x)
@@ -147,11 +150,10 @@ class Cifar100_Specific(Dataset):
 
         data = []#[path0,path2,path2,...]
         label = []#[0,0,0,1,2,...]
-        label_text=[]
         lb = -1
 
         self.wnids = []
-
+        label_text=[]
         # for l in tqdm(lines, ncols=64):
         for l in lines:
             name, wnid = l.split(',')
@@ -169,8 +171,7 @@ class Cifar100_Specific(Dataset):
         return len(self.data)
 
     def __getitem__(self, i):
-        data, label, label_text = self.data[i], self.label[i],self.label_text[i]
+        data, label, label_text = self.data[i], self.label[i], self.label_text[i]
         image = self.transform(Image.open(data).convert('RGB'))
-        #image=Image.open(data)
 
-        return image, label,label_text
+        return image, label, label_text

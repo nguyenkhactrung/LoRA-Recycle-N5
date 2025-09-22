@@ -1,25 +1,21 @@
-import sys
-import os
-sys.path.append(os.path.abspath(os.path.join(__file__, "..", "..")))
 import os.path as osp
 from PIL import Image
 from torch.utils.data import Dataset
 from torchvision import transforms
 import numpy as np
 SPLIT_PATH = osp.join('')
-assert len(SPLIT_PATH)!=0, 'You should input the SPLIT_PATH!'
-
+#assert len(SPLIT_PATH)!=0, 'You should input the SPLIT_PATH!'
 
 def identity(x):
     return x
 
-class flower(Dataset):
+class chest(Dataset):
     """ Usage:
     """
-    def __init__(self, setname, augment=False,noTransform=False,resolution=32):
+    def __init__(self, setname,augment=False,noTransform=False,resolution=32):
         csv_path = osp.join(SPLIT_PATH, setname + '.csv')
         #print('csv_path:',csv_path)
-        self.data, self.label,self.label_text = self.parse_csv(csv_path, setname)
+        self.data, self.label, self.label_text = self.parse_csv(csv_path, setname)
         self.num_class = len(set(self.label))
 
         self.img_size = resolution
@@ -41,7 +37,6 @@ class flower(Dataset):
             self.transform = transforms.Compose(
                 transforms_list
             )
-
     def parse_csv(self, csv_path, setname):
         lines = [x.strip() for x in open(csv_path, 'r').readlines()][1:]
 
@@ -50,7 +45,7 @@ class flower(Dataset):
         lb = -1
 
         self.wnids = []
-        labet_text=[]
+        label_text=[]
         # for l in tqdm(lines, ncols=64):
         for l in lines:
             name, wnid = l.split(',')
@@ -60,23 +55,21 @@ class flower(Dataset):
                 lb += 1
             data.append( path )
             label.append(lb)
-            labet_text.append(wnid)
+            label_text.append(wnid)
 
-        return data, label,labet_text
+        return data, label, label_text
 
     def __len__(self):
         return len(self.data)
 
     def __getitem__(self, i):
-        data, label,label_text = self.data[i], self.label[i],self.label_text[i]
+        data, label, label_text = self.data[i], self.label[i], self.label_text[i]
         image = self.transform(Image.open(data).convert('RGB'))
 
-        return image, label,label_text
-
-class flower_Specific(Dataset):
+        return image, label, label_text
+class chest_Specific(Dataset):
     """ Usage:
     """
-
     def __init__(self, setname, specific=None, augment=False, mode='all',noTransform=False,resolution=32):
         csv_path = osp.join(SPLIT_PATH, setname + '.csv')
         self.data, self.label,self.label_text = self.parse_csv(csv_path, setname)
@@ -153,8 +146,7 @@ class flower_Specific(Dataset):
         lb = -1
 
         self.wnids = []
-        labet_text=[]
-        # for l in tqdm(lines, ncols=64):
+        label_text=[]
         for l in lines:
             name, wnid = l.split(',')
             path = name
@@ -163,15 +155,15 @@ class flower_Specific(Dataset):
                 lb += 1
             data.append( path )
             label.append(lb)
-            labet_text.append(wnid)
+            label_text.append(wnid)
 
-        return data, label,labet_text
+        return data, label,label_text
 
     def __len__(self):
         return len(self.data)
 
     def __getitem__(self, i):
-        data, label,label_text = self.data[i], self.label[i],self.label_text[i]
+        data, label, label_text = self.data[i], self.label[i], self.label_text[i]
         image = self.transform(Image.open(data).convert('RGB'))
 
-        return image, label,label_text
+        return image, label, label_text
