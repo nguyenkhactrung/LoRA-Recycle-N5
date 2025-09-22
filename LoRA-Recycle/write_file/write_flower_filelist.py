@@ -7,7 +7,7 @@ import random
 import csv
 
 import scipy.io
-DATA_PATH='C:/datasets/flower/flower/jpg'
+DATA_PATH='C:/datasets/flower/jpg'
 SPLIT_PATH = './filelists/flower/'
 assert len(DATA_PATH)!=0,'You should input the data_path!'
 assert len(SPLIT_PATH)!=0,'You should input the savedir!'
