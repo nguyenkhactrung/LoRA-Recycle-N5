@@ -130,9 +130,20 @@ class InversionSyntheiszer(BaseSynthesis):
             optimizer.step()
             inputs.data = clip_images(inputs.data, self.normalizer.mean, self.normalizer.std,use_fp16=self.use_fp16)
 
-        outputs = self.teacher.clip_model.vision_model(best_inputs,return_dict=False,output_attentions=True)
-        attention_scores = torch.mean(outputs[-2][-1], dim=1)[:, 0, :][:, 1:]
-        index_matrix = outputs[-1]
+        outputs = self.teacher.clip_model.vision_model(best_inputs, output_hidden_states=True)
+        print(type(outputs))
+        if isinstance(outputs, torch.Tensor):
+            print("outputs.shape =", outputs.shape)
+        else:
+            print(outputs)
+
+        #attention_scores = torch.mean(outputs[-2][-1], dim=1)[:, 0, :][:, 1:]
+        #index_matrix = outputs[-1]
+        hidden_states = outputs.hidden_states   # tuple (layer_outputs)
+        last_hidden = hidden_states[-1]         # [batch, seq_len, hidden_dim]
+        attention_scores = torch.mean(last_hidden, dim=1)  # [batch, hidden_dim]
+        index_matrix = torch.arange(last_hidden.shape[1], device=last_hidden.device).repeat(last_hidden.shape[0], 1)
+        
         reverse_patch(self.teacher.clip_model)
 
 
