@@ -23,6 +23,7 @@ Nguyên 			Thu thập + xử lý dữ liệu	- Code
  								+ Chạy pipeline Hadoop với subset (~1GB) để tạo báo cáo log.
  							- Báo cáo
  								+ Viết phần 2 (Dữ liệu & tiền xử lý).
+								+ Hỗ trợ Trọng làm slide
  								+ Upload code tiền xử lý & sơ đồ data flow lên GitHub.
 
 Hiếu 			Huấn luyện mô hình		- Code
