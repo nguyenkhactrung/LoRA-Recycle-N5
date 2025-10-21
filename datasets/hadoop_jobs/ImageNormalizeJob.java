@@ -1,118 +1,153 @@
 import org.apache.hadoop.conf.Configuration;
-import org.apache.hadoop.conf.Configured;
-import org.apache.hadoop.fs.FileStatus;
-import org.apache.hadoop.fs.FileSystem;
 import org.apache.hadoop.fs.Path;
-import org.apache.hadoop.io.BytesWritable;
 import org.apache.hadoop.io.Text;
+import org.apache.hadoop.io.BytesWritable;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.Mapper;
 import org.apache.hadoop.mapreduce.Reducer;
-import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
-import org.apache.hadoop.util.Tool;
-import org.apache.hadoop.util.ToolRunner;
+import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 import javax.imageio.ImageIO;
-import java.awt.Graphics2D;
-import java.awt.Image;
+import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.net.URI;
+import java.util.*;
 
-public class ImageNormalizeJob extends Configured implements Tool {
+public class ImageNormalizeJob {
 
-    // Mapper
     public static class ImageMapper extends Mapper<Text, BytesWritable, Text, BytesWritable> {
+        private Set<String> validImages = new HashSet<>();
+
+        @Override
+        protected void setup(Context context) throws IOException {
+            URI[] cacheFiles = context.getCacheFiles();
+            if (cacheFiles != null) {
+                for (URI uri : cacheFiles) {
+                    Path path = new Path(uri.getPath());
+                    if (path.getName().equals("list_attr_celeba.csv")) {
+                        try (BufferedReader br = new BufferedReader(new FileReader(path.getName()))) {
+                            String line = br.readLine();
+                            while ((line = br.readLine()) != null) {
+                                String[] parts = line.split(",");
+                                if (parts.length > 21) {
+                                    String fileName = parts[0].trim();
+                                    int male = Integer.parseInt(parts[21].trim());
+                                    int blackHair = Integer.parseInt(parts[9].trim());
+                                    if (male == -1 && blackHair == 1)
+                                        validImages.add(fileName);
+                                }
+                            }
+                        } catch (Exception e) {
+                            System.err.println("Lỗi đọc CSV: " + e.getMessage());
+                        }
+                    }
+                }
+            }
+        }
+
         @Override
         protected void map(Text key, BytesWritable value, Context context)
                 throws IOException, InterruptedException {
 
-            byte[] imageBytes = value.getBytes();
-            ByteArrayInputStream bis = new ByteArrayInputStream(imageBytes);
-            BufferedImage img = ImageIO.read(bis);
+            String filePath = key.toString();
+            String fileName = filePath.substring(filePath.lastIndexOf("/") + 1);
+            if (!validImages.contains(fileName)) return;
 
-            if (img != null) {
-                // Resize 224x224
-                Image scaled = img.getScaledInstance(224, 224, Image.SCALE_SMOOTH);
-                BufferedImage resized = new BufferedImage(224, 224, BufferedImage.TYPE_INT_RGB);
+            try {
+                ByteArrayInputStream bis = new ByteArrayInputStream(value.getBytes(), 0, value.getLength());
+                BufferedImage img = ImageIO.read(bis);
+                if (img == null) return;
+
+                int width = 224, height = 224;
+                Image tmp = img.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+                BufferedImage resized = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
                 Graphics2D g2d = resized.createGraphics();
-                g2d.drawImage(scaled, 0, 0, null);
+                g2d.drawImage(tmp, 0, 0, null);
                 g2d.dispose();
 
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
                 ImageIO.write(resized, "jpg", bos);
-                byte[] processedBytes = bos.toByteArray();
+                byte[] newBytes = bos.toByteArray();
+                bos.close();
 
-                // Lấy nhãn từ folder cha trên HDFS
-                String filePath = key.toString();
-                String[] parts = filePath.split("/");
-                String label = parts[parts.length - 2]; // folder cha là class
+                context.write(new Text("female_blackhair/" + fileName), new BytesWritable(newBytes));
 
-                context.write(new Text(label), new BytesWritable(processedBytes));
+            } catch (Exception e) {
+                System.err.println("Error processing file: " + fileName + " - " + e.getMessage());
             }
         }
     }
 
-    // Reducer
     public static class ImageReducer extends Reducer<Text, BytesWritable, Text, BytesWritable> {
         @Override
         protected void reduce(Text key, Iterable<BytesWritable> values, Context context)
                 throws IOException, InterruptedException {
+
             int index = 0;
             for (BytesWritable val : values) {
-                String fileName = key.toString() + "_" + index + ".jpg";
-                context.write(new Text(fileName), val);
+                byte[] imageBytes = Arrays.copyOf(val.getBytes(), val.getLength());
+                String outputName = key.toString();
+                if (index > 0 && outputName.toLowerCase().endsWith(".jpg"))
+                    outputName = outputName.replace(".jpg", "_" + index + ".jpg");
+
+                context.write(new Text(outputName), new BytesWritable(imageBytes));
                 index++;
             }
         }
     }
 
-    // Hàm đệ quy quét folder HDFS
-    public static void addAllHDFSFiles(FileSystem fs, Path path, Job job) throws IOException {
-        FileStatus[] statuses = fs.listStatus(path);
-        for (FileStatus status : statuses) {
-            if (status.isDirectory()) {
-                addAllHDFSFiles(fs, status.getPath(), job);
-            } else {
-                FileInputFormat.addInputPath(job, status.getPath());
-            }
-        }
-    }
-
-    @Override
-    public int run(String[] args) throws Exception {
-        if (args.length < 2) {
-            System.err.println("Usage: ImageNormalizeJob <input_path> <output_path>");
-            return -1;
-        }
-
-        Configuration conf = getConf();
-        Job job = Job.getInstance(conf, "Image Normalize Job");
-        job.setJarByClass(ImageNormalizeJob.class);
-
-        // Quét HDFS input recursively
-        FileSystem fs = FileSystem.get(conf);
-        Path inputPath = new Path(args[0]);
-        addAllHDFSFiles(fs, inputPath, job);
-
-        // Mapper + Reducer
-        job.setMapperClass(ImageMapper.class);
-        job.setReducerClass(ImageReducer.class);
-
-        job.setOutputKeyClass(Text.class);
-        job.setOutputValueClass(BytesWritable.class);
-
-        job.setOutputFormatClass(WholeFileOutputFormat.class);
-        WholeFileOutputFormat.setOutputPath(job, new Path(args[1]));
-
-        job.setNumReduceTasks(3);
-
-        return job.waitForCompletion(true) ? 0 : 1;
-    }
-
+    // ================== MAIN ==================
     public static void main(String[] args) throws Exception {
-        int exitCode = ToolRunner.run(new ImageNormalizeJob(), args);
-        System.exit(exitCode);
+        if (args.length < 2) {
+            System.err.println("Usage: ImageNormalizeJob <input path> <output base path>");
+            System.exit(-1);
+        }
+
+        String input = args[0];
+        String baseOutput = args[1];
+
+        int[][] configs = {
+                {1, 1},
+                {3, 1},
+                {3, 3}
+        };
+
+        System.out.printf("%-20s %-20s %-20s %-20s %-20s\n",
+                "Thành phần", "Thời gian bắt đầu(ms)", "Thời gian kết thúc(ms)", "Thời gian thực thi(ms)", "Ghi chú");
+
+        for (int i = 0; i < configs.length; i++) {
+            int mappers = configs[i][0];
+            int reducers = configs[i][1];
+            String jobName = String.format("Job_%dM_%dR", mappers, reducers);
+
+            Configuration conf = new Configuration();
+            Job job = Job.getInstance(conf, jobName);
+
+            job.setJarByClass(ImageNormalizeJob.class);
+            job.setMapperClass(ImageMapper.class);
+            job.setReducerClass(ImageReducer.class);
+
+            job.setInputFormatClass(CombineWholeFileInputFormat.class);
+            job.setOutputFormatClass(WholeFileOutputFormat.class);
+
+            job.setOutputKeyClass(Text.class);
+            job.setOutputValueClass(BytesWritable.class);
+
+            CombineWholeFileInputFormat.addInputPath(job, new Path(input));
+            FileOutputFormat.setOutputPath(job, new Path(baseOutput + "_" + jobName));
+
+            job.addCacheFile(new URI("/data_input/list_attr_celeba.csv#list_attr_celeba.csv"));
+            job.setNumReduceTasks(reducers);
+
+            long start = System.currentTimeMillis();
+            boolean success = job.waitForCompletion(true);
+            long end = System.currentTimeMillis();
+            long duration = end - start;
+
+            System.out.printf("%-20s %-20d %-20d %-20d %-20s\n",
+                    jobName, start, end, duration,
+                    success ? "Hoàn thành" : "Thất bại");
+        }
     }
 }
