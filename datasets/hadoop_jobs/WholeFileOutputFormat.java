@@ -9,14 +9,14 @@ import org.apache.hadoop.mapreduce.TaskAttemptContext;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 /**
- * OutputFormat ghi mỗi record thành 1 file ảnh riêng biệt (.jpg).
- * key = tên file (000001.jpg), value = BytesWritable (nội dung ảnh).
+ * Ghi mỗi record thành 1 file ảnh (.jpg)
+ * key = tên file (vd: female_blackhair/000001.jpg)
+ * value = BytesWritable (nội dung ảnh)
  */
 public class WholeFileOutputFormat extends FileOutputFormat<Text, BytesWritable> {
 
     @Override
-    public RecordWriter<Text, BytesWritable> getRecordWriter(TaskAttemptContext job)
-            throws IOException {
+    public RecordWriter<Text, BytesWritable> getRecordWriter(TaskAttemptContext job) throws IOException {
         Path outputDir = getOutputPath(job);
         FileSystem fs = outputDir.getFileSystem(job.getConfiguration());
 
@@ -26,8 +26,11 @@ public class WholeFileOutputFormat extends FileOutputFormat<Text, BytesWritable>
                 if (key == null || value == null)
                     return;
 
-                // mỗi ảnh ghi thành file <outputDir>/<fileName>
                 Path file = new Path(outputDir, key.toString());
+                if (file.getParent() != null) {
+                    fs.mkdirs(file.getParent());
+                }
+
                 try (FSDataOutputStream out = fs.create(file, true)) {
                     out.write(value.getBytes(), 0, value.getLength());
                 }
